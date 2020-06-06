@@ -2,22 +2,10 @@ import React from "react";
 import { XYPlot,
   XAxis,
   YAxis,
-  ChartLabel,
   HorizontalGridLines,
   VerticalGridLines,
-  LineSeries,
-  LabelSeries,
   LineSeriesCanvas } from "react-vis";
 import './BarChart.css';
-
-const greenData = [{x: 'A', y: 10}, {x: 'B', y: 5}, {x: 'C', y: 15}];
-
-const blueData = [{x: 'A', y: 12}, {x: 'B', y: 2}, {x: 'C', y: 11}];
-
-const labelData = greenData.map((d, idx) => ({
-  x: d.x,
-  y: Math.max(greenData[idx].y, blueData[idx].y)
-}));
 
 const getLineSeries = (data) => {
   return data.map( (d, i) => <LineSeriesCanvas
@@ -26,7 +14,7 @@ const getLineSeries = (data) => {
   />);
 }
 
-const BarChart = ({data, title, showLabels}) => {
+const BarChart = ({data, title}) => {
   return (
     <section id="BarChart">
       <h1>{title}</h1>
