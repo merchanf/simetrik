@@ -1,0 +1,14 @@
+#BarChart{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.rv-xy-plot {
+  position: relative;
+}
+
+.rv-xy-canvas{
+  position: absolute;
+}
