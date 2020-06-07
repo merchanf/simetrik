@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PieChart from "./PieChart/PieChart";
 import BarChart from "./BarChart/BarChart";
 import Board from "./Board/Board";
@@ -7,15 +7,15 @@ import './App.css';
 const pieChartData = [
     {
       amount: 161621.69,
-      label: 161621.69
+      label: "Approved"
     },
     {
       amount: 27645.85,
-      label: 27645.85
+      label: "Pending"
     },
     {
       amount: 53722.73,
-      label: 27645.85
+      label: "Rejected"
     }
 ];
 
@@ -62,8 +62,23 @@ const selectData = [
 ];
 
 function App() {
+
+  const [selected, setSelected] = useState(2);
+
   return (
-    <Board data={selectData} title="hola"/>
+    <div id="Simetrik">
+      <h1 className="title">
+        <button onClick={() => setSelected(2)}>Ejercicio 2</button> |
+        <button onClick={() => setSelected(3)}>Ejercicio 3</button>
+      </h1>
+      {selected === 2 && <div className="ejercicio-2">
+        <Board data={selectData}/>
+      </div>}
+      {selected === 3 && <div className="ejercicio-3">
+        <BarChart data={BarChartData} title="Suma de total_items" showLabels/>
+        <PieChart data={pieChartData} title="Suma de total_amount por status" showLabels/>
+      </div>}
+    </div>
   );
 }
 
