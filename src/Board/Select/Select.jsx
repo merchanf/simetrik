@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { FiCheck } from "react-icons/fi";
 import "./Select.scss";
 
-const Select = ({data, title, onSelected, inverse}) => {
+const Select = ({data, onSelected, inverse}) => {
 
   const [lookup, setLookup] = useState("");
   const [selected, setSelected] = useState([]);
@@ -16,10 +16,13 @@ const Select = ({data, title, onSelected, inverse}) => {
   */
   const handleOnClick = (_e, item) => {
     //Si existe hay que removerlo
-    if(selected.includes(item))
+    if(selected.includes(item)){
+      onSelected(selected.filter(s => s !== item))
       setSelected(selected.filter(s => s !== item))
-    else //Si no existe hay que incluirlo
+    }else{ //Si no existe hay que incluirlo
+      onSelected([...selected, item])
       setSelected([...selected, item]);
+    }
   }
 
   /**
@@ -39,13 +42,11 @@ const Select = ({data, title, onSelected, inverse}) => {
     let className = includes ? "selected " : "not-selected ";
     if(includes)
       className += inverse ? " beige_bg" : " purple_bg";
-    console.log(className);
     return className;
   }
   
   return (
     <div id="Select">
-      {title && <h1>{title}</h1>}
       <input type="text" onChange={handleOnChange} placeholder="Buscar columna"/>
       <ul>
         {data.filter(d => d.includes(lookup)).map( (d, i) => 

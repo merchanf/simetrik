@@ -1,0 +1,26 @@
+#Item{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  font-family: "poppins";
+  padding-right: 12px;
+  padding-left: 24px;
+
+  .drang-handle{
+    margin-right: 12px;
+  }
+
+  .sort-alpha-down, .sort-alpha-up {
+    
+    margin-right: 12px;
+
+    &.selected{
+      color: #4C73E7;
+    }
+
+    &.not-selected{
+      color: #878994;
+    }
+  }
+}
