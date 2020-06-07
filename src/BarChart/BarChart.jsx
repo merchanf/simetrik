@@ -4,7 +4,8 @@ import { XYPlot,
   YAxis,
   HorizontalGridLines,
   VerticalGridLines,
-  LineSeriesCanvas } from "react-vis";
+  LineSeriesCanvas,
+  DiscreteColorLegend } from "react-vis";
 import './BarChart.css';
 
 const getLineSeries = (data) => {
@@ -19,8 +20,8 @@ const BarChart = ({data, title}) => {
     <section id="BarChart">
       <h1>{title}</h1>
       <XYPlot 
-        width={300} 
-        height={300}
+        width={800} 
+        height={400}
         xType="ordinal"
       >
           <HorizontalGridLines style={{stroke: '#B7E9ED'}}/>
@@ -29,6 +30,7 @@ const BarChart = ({data, title}) => {
           <YAxis />
           {getLineSeries(data)}
         </XYPlot>
+      <DiscreteColorLegend items={data.map(d => d.label)} />
     </section>
   )
 }
