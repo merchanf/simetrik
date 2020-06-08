@@ -1,68 +1,82 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este proyecto fue creado con base en [Create React App](https://github.com/facebook/create-react-app). 
 
-## Available Scripts
+Para correr el proyecto solamente es necesario instalar las dependencias con `npm install` y luego se puede correr con `npm start`.
 
-In the project directory, you can run:
+# Ejercicio 1
 
-### `npm start`
+El archivo para este ejercicio se encuentra en la carpeta `src/script,js`, sin embargo, se muestra a continuación el código utilizado para resolver el problema.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+``` Javascript
+const columns = [
+  'Columna SKT_ID',
+  'Columna Amount',
+  'Columna Getway',
+  'Columna Date',
+  'Columna Issuer',
+  'Columna User_id']
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+const ul = document.querySelector('ul')
 
-### `npm test`
+const setColumn = (column) => {
+  return new Promise (resolve => setTimeout(() => {
+    ul.innerHTML += `<li>${column}</li>`
+    resolve();
+  }, Math.random() * 5000))
+}
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+async function showColumns() {
+  for(let col = 0; col < columns.length; col++){
+    await setColumn(columns[col]);
+  }
+}
 
-### `npm run build`
+showColumns();
+```
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Ejercicio 2
 
-### `npm run eject`
+Los componentes para este ejercicio son los siguientes:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+  - **Board:** Componente padre encargado de la únión de los demás componentes.
+    - **Select:** Componente que permite seleccionar uno o más Items.
+    - **Draggable:** Contenedor del componente que permite que los items se puedan organizar a través del arrastre.
+    - **Item:** Componente que puede ser arrastrado.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Ejercicio 3
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Para este ejercicio se usó la libreria [react-vis](https://uber.github.io/react-vis/) y los componentes creados son:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+  - **BarChart:** Componente que grafica un diagrama de líneas.
+  - **PieChart:** Componente que grafica un diagrama de torta.
 
-## Learn More
+# Ejercicio 4
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### **1. ¿Porque no debería usar la libreria JQuery, si estoy usando ReactJS?**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+El uso de Jquery se basa en la manipulación directa de componentes del DOM, mientras React lo hace a través del DOM virtual. Dado que la forma de manejo del DOM en ambas librerías es distina entrarían en conflicto si se usan al mismo tiempo, ya que no hay forma de que Jquery le comunique a react los cambios que hace en el dom y visceversa.
 
-### Code Splitting
+**2. ¿Porque usarias Hooks de las nuevas versiones de ReactJS, en lugar de class component?**
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+React hooks y en general los componentes funcionales de React hacen que el desarrollo de componentes sea más eficiente pues se desarrolla un componente en menos líneas de código, es más fácil de leer y mantener. Eso sin contar que react Hooks es la base de la nueva generación de funcionalidades de React lo que quiere decir que van a recibir mayor prioridad en cuanto a mejoras y desarrollos que los componentes de clase.
 
-### Analyzing the Bundle Size
+**3. ¿Que es un archivo JSX?**
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+Un archivo JSX, es un archivo de código javascript que a pesar de tener la misma estructura de un lenguaje de etiquetas le permite el uso de funcionalidades de Javascript, especialmente para uso conjunto con React.
 
-### Making a Progressive Web App
+**4. ¿Que diferencia hay entre una function y una arrow function de Javascript?**
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+Las funciones flecha son una sintaxis para creación de funciones disponible en ES6, lo que quiere decir que no está disponible para todos los navegadores a diferencia de la sintaxis tradicional. A pesar de varias diferencias que hay entre ambas sintaxis de declaración de funciones, la mayor diferencia sobre su par radica en el uso del contexto: una función flecha no tiene su propio contexto a diferencia de una función tradicional. Entre otras diferencias se puede destacar la no duplicación de argumentos en las funciones flecha y el acceso a los argumentos de la funcion a través de un arreglo que es posible en una función tradicional pero no en una función flecha.
 
-### Advanced Configuration
+**5. ¿Que es Redux y cómo nos ayuda en los proyectos?**
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+Redux es una liberia para la gestión de estados que a pesar que funciona con cualquier librería, tiene una alta sinergia con React. El uso de redux permite que el manejo de información en una aplicación se pueda manejar de forma sencilla, ya que en una aplicación con muchos componentes la transmisión de datos puede ser un dolor de cabeza si se realiza componente por componente. Redux minimiza este efecto creando un lugar central de datos accesible por cualquier componente sin comprometer la jerarquia o arquitectura de los componentes en la aplicación.
 
-### Deployment
+**6. ¿Que nos permite hacer la siguiente declaración?**
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+``` Javascript
+const anyFunction = (param_1) => (param_2) => param_1 + param_2
+```
 
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Este tipo de funciones se llaman closures, son funciones que retornan funciones, y como en este ejemplo nos permiten almacenar el estado de la primera función. Es decir, para este ejemplo, si se llama a `anyFunction` con un valor constante por ejemplo, `let a = anyFunction(1)` y si se llama a la segunda función con valores como `a(1), a(2)` o ` a(3)` el resultado será 1 más lo que contenga el segundo argumento (o primer argumento de la segunda función). Esto quiere decir que la segunda función guardó el valor de 1 para si mismo durante todo el resto de su ejecución para la variable a, y así seguirá siendo a menos que se modifique ejecutando de nuevo a `anyFunction` con un argumento de diferente valor.
