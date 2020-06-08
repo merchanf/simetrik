@@ -50,7 +50,7 @@ export const Draggable = ({data, onChange}) => {
         id={item.id}
         text={item.text}
         moveItem={moveCard}
-        sort={handleSort}
+        onDragged={handleSort}
       />
     )
   }

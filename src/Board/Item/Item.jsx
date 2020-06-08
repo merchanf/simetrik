@@ -58,10 +58,9 @@ export const Item = ({ id, text, index, moveItem, onDragged }) => {
   const opacity = isDragging ? 0 : 1
   drag(drop(ref))
 
-  useEffect(() => {
-    if(onDragged)
-      onDragged(upwards);
-  }, [onDragged, upwards]);
+  
+  const handleOnclick = value => setUpwards( _ => { onDragged(id, value); return value; })
+
 
   return (
     <div id="Item" ref={ref} style={{ opacity }}>
@@ -72,11 +71,11 @@ export const Item = ({ id, text, index, moveItem, onDragged }) => {
       <div>
         <FaSortAlphaDown 
           className={"sort-alpha-down " + (upwards ? "selected" : "not-selected")}
-          onClick={() => setUpwards(true)}
+          onClick={() => handleOnclick(true)}
           />
         <FaSortAlphaUpAlt 
           className={"sort-alpha-up " + (!upwards ? "selected" : "not-selected")} 
-          onClick={() => setUpwards(false)}
+          onClick={() => handleOnclick(false)}
           />
       </div>
     </div>
