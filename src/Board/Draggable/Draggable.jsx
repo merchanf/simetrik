@@ -1,22 +1,25 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { Item } from '../Item/Item';
 import update from 'immutability-helper'
 import useDeepEffect from '../../useDeepEffect';
 
 
-export const Draggable = ({data, sortables, onChange}) => {
+export const Draggable = ({data, onChange}) => {
 
-  const [items, setItems] = useState( data.map( (el, i) => ({
-    id: i,
-    text: el,
-    sort: "upwards"
-  })));
-  console.log(sortables);
+  const [items, setItems] = useState([]);
+
+  useEffect(() =>{
+    setItems(data.map( (el, i) => ({
+      id: i,
+      text: el,
+      sort: "upwards"
+    })));
+  }, [data]);
 
   useDeepEffect(() => {
     if(onChange)
       onChange(items);
-  }, [onChange, items])
+  }, [onChange, items, setItems])
 
   const moveCard = useCallback(
     (dragIndex, hoverIndex) => {

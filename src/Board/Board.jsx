@@ -1,4 +1,4 @@
-import React, {useState, useRef} from "react";
+import React, {useState} from "react";
 import Select from "./Select/Select";
 import Draggable from "./Draggable/Draggable"
 import { DndProvider } from "react-dnd"
@@ -7,13 +7,11 @@ import './Board.scss';
 import useDeepEffect from "../useDeepEffect";
 
 const Board = ({data}) => {
-  //const [sortables, setSortables] = useState([]);
-  const sortables = useRef([])
+  const [sortables, setSortables] = useState([]);
   const [selected, setSelected] = useState();
   const [sorted, setSorted] = useState();
 
   useDeepEffect(() => {
-    "hola";
   }, [sortables]);
 
   const handleOk = () => {
@@ -28,9 +26,10 @@ const Board = ({data}) => {
     console.log("No sorting criteria defined");
   }
 
-  /*const onSelectSecond = (values) => {
-    sortables.current = values;
-  }*/
+  const onSelectSecond = (values) => {
+    //console.log(values);
+    setSortables(values);
+  }
 
   return(
     <section id="Board">
@@ -42,11 +41,11 @@ const Board = ({data}) => {
         <h1>¿Cómo quieres ordenarlos?</h1>
         <div className="sort">
           <DndProvider backend={HTML5Backend}>
-            <Draggable data={sortables.current} onChange={setSorted}/>
+            <Draggable data={sortables} onChange={setSorted}/>
           </DndProvider>
         </div>
         <div className="select-2">
-          <Select data={data} inverse ref={sortables}/> 
+          <Select data={data} inverse onSelected={onSelectSecond}/> 
         </div>
         <div className="buttons">
           <button className="cancelar">Cancelar</button>
