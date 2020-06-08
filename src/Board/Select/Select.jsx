@@ -1,11 +1,16 @@
 import React, {useState} from "react";
 import { FiCheck } from "react-icons/fi";
+import useDeepEfect from "../../useDeepEffect";
 import "./Select.scss";
 
 const Select = ({data, onSelected, inverse}) => {
 
   const [lookup, setLookup] = useState("");
   const [selected, setSelected] = useState([]);
+
+  useDeepEfect(() => {
+    onSelected(selected);
+  }, [selected, onSelected]);
 
   /**
   * Funcion que maneja el evento de clic en los items de la lista
@@ -16,13 +21,10 @@ const Select = ({data, onSelected, inverse}) => {
   */
   const handleOnClick = (_e, item) => {
     //Si existe hay que removerlo
-    if(selected.includes(item)){
-      onSelected(selected.filter(s => s !== item))
+    if(selected.includes(item))
       setSelected(selected.filter(s => s !== item))
-    }else{ //Si no existe hay que incluirlo
-      onSelected([...selected, item])
+    else //Si no existe hay que incluirlo
       setSelected([...selected, item]);
-    }
   }
 
   /**

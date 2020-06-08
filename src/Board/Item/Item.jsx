@@ -1,11 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { ItemTypes } from './ItemTypes';
 import { MdDragHandle } from "react-icons/md";
 import { FaSortAlphaDown, FaSortAlphaUpAlt } from "react-icons/fa";
 import "./Item.scss";
 
-export const Item = ({ id, text, index, moveItem, sort }) => {
+export const Item = ({ id, text, index, moveItem, onDragged }) => {
   const [upwards, setUpwards] = useState(true);
   const ref = useRef(null);
   const [, drop] = useDrop({
@@ -58,7 +58,10 @@ export const Item = ({ id, text, index, moveItem, sort }) => {
   const opacity = isDragging ? 0 : 1
   drag(drop(ref))
 
-  const handleOnclick = value => setUpwards( _ => { sort(id, value); return value; })
+  useEffect(() => {
+    if(onDragged)
+      onDragged(upwards);
+  }, [onDragged, upwards]);
 
   return (
     <div id="Item" ref={ref} style={{ opacity }}>
@@ -69,11 +72,11 @@ export const Item = ({ id, text, index, moveItem, sort }) => {
       <div>
         <FaSortAlphaDown 
           className={"sort-alpha-down " + (upwards ? "selected" : "not-selected")}
-          onClick={() => handleOnclick(true)}
+          onClick={() => setUpwards(true)}
           />
         <FaSortAlphaUpAlt 
           className={"sort-alpha-up " + (!upwards ? "selected" : "not-selected")} 
-          onClick={() => handleOnclick(false)}
+          onClick={() => setUpwards(false)}
           />
       </div>
     </div>
